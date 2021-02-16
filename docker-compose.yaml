@@ -1,0 +1,29 @@
+version:  "3.7"
+services:
+  rabbitmq:
+   build:
+     context: ./
+       dockerfile: Dockerfile
+   container_name: rabbitmq
+   restart: always
+   ports:
+     - 9090:15802
+     - 8888:9090
+   hostname: stats
+   volumes:
+     - ./datavar/lib/rabbitmq/mnesia
+   enviroment:
+     RABBITMQ_DEFAULT_USER: adanmc
+     RABBITMQ_DEFAULT_PASS: Butthead.Bitch
+     RABBITMQ_DEFAULT_MEMORY_HIGH_WATERMARK: 0.5
+   networks:
+     rabbitmq_net:
+       aliases:
+         - rabbitmq_host
+  volumes:
+    data: {}
+  netowrks:
+    rabbitmq_net:
+      name: rabbitmq_netwrok
+      driver: bridge
+
